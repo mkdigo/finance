@@ -1,0 +1,24 @@
+nav.tools input, nav.tools select{
+	width: 100px;
+}
+
+section.conteudo div{
+	min-width: 350px;
+	text-align: center;
+}
+
+section.conteudo ul:nth-child(1){
+	color: rgb(163, 4, 4);
+}
+
+section.conteudo ul li{
+	width: 24%;
+}
+
+@media screen and (max-width: 768px) {
+
+	nav.tools ul li:nth-child(1){
+		border: none;
+	}
+
+}

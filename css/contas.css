@@ -1,0 +1,35 @@
+section.conteudo div{
+	min-width: 600px;
+	width: 60%;
+}
+
+section.conteudo div ul{
+	white-space: nowrap;
+}
+
+section.conteudo div ul li{
+	width: 33%;
+	min-width: 180px;
+	overflow: hidden;
+	white-space: nowrap;
+	padding: 3px 5px;
+}
+
+section.conteudo div ul:nth-child(1){
+	color: rgb(163, 4, 4);
+}
+
+div#cxAdd input, div#cxAdd select{
+	width: 220px;
+}
+
+@media screen and (max-width: 768px) {
+	section.conteudo div{
+		width: 98%;
+	}
+	
+	section.conteudo{
+		display: block;
+		overflow: scroll;
+	}
+}

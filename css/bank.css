@@ -1,0 +1,39 @@
+ nav.tools li{
+	min-width: 0px;
+}
+
+.flexUl ul li:nth-child(2){
+	width: 130px;
+	min-width: 80px;
+	justify-content: center;
+}
+
+nav.tools li.amount, nav.tools li.amount span{
+	font-size: 26px;
+	color: rgb(163, 4, 4);
+	cursor: auto;
+}
+
+/* .layer{
+	display: flex;
+}
+
+#withdraw{
+	display: block;
+} */
+
+@media screen and (max-width: 768px) {
+	.flexUl ul li:nth-child(2){
+		width: 60px;
+        min-width: 60px;
+	}
+
+	.flexUl ul {
+		min-width: 550px;
+	}
+
+	nav.tools li.amount{
+		border-left: none;
+	}
+	
+}

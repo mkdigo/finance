@@ -1,0 +1,64 @@
+nav.tools select, nav.tools input{
+	min-width: 80px;
+	width: 80px;
+}
+
+section.container div{
+	min-width: 350px;
+	width: 50%;
+	padding: 10px 3px;
+	border: solid 1px black;
+	font-size: 28px;
+}
+
+section.container div:nth-child(5){
+	width: 100%;
+}
+
+section.container div ul{
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+}
+
+section.container div ul li{
+	list-style: none;
+	border-bottom: solid 1px #000;
+	padding: 0 5px;
+}
+
+section.container div li:nth-child(odd){
+	width: 65%;
+}
+
+section.container div li:nth-child(even){
+	width: 35%;
+	text-align: right;
+}
+
+section.container header li{
+	font-size: 18px;
+}
+
+section.container header li.red{
+	color: rgb(163, 4, 4);
+	font-size: 22px;
+}
+
+ul.data{
+	padding-left: 15px;
+}
+
+
+@media screen and (max-width: 970px) {
+	section.container div{
+		width: 100%;
+	}
+}
+
+
+@media screen and (max-width: 768px) {
+	nav.tools li{
+		border: none;
+    }	
+}
