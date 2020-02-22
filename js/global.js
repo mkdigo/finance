@@ -55,11 +55,60 @@ document.addEventListener("DOMContentLoaded", function(){
        });
    }
 
-   //ADJUSTMENT
-   $("#menuAdjustment").addEventListener("click", ()=>{
-       box("boxAdjustment");
-       $("#adjustmentDate").value = now();
-   })
+   //CASH ADJUSTMENT
+   $("#menuAdjustCash").addEventListener("click", ()=>{
+       box("boxAdjustCash", "adjustCashValue");
+   });
+
+   const adjustCashForm = $("#adjustCashForm input, #adjustCashForm select");
+
+   $("#adjustCashConfirm").addEventListener("click", ()=>{
+       let er = 0;
+
+        for(let x = 0; x < adjustCashForm.length; x++){
+            if(adjustCashForm[x].value == ""){
+                error(adjustCashForm[x]);
+                er++;
+            }else{
+                errorClear(adjustCashForm[x]);
+            }
+        }
+        
+        if(er == 0){
+            adjustCashRequest();
+        }
+    });
+
+    function adjustCashRequest(){
+        let load = new Load();
+        load.loadOn();
+    
+        let form = new FormData($("#adjustCashForm"));
+    
+        fetch('adjustCash.php', {
+            method: 'post',
+            body: form
+        }).then((response)=>{
+            if(!response.ok) throw new Error('Erro ao executar requisição, status ' + response.status);
+            return response.json();
+        }).then((data)=>{
+            close();
+            if(!data.error){
+    
+                location.reload();
+                
+            }else{
+                $("#boxError").innerHTML = data.errorMsg;
+                box("boxError");
+                setTimeout(()=>{close();}, 2500);
+            }
+    
+            load.loadOff();
+        }).catch((err)=>{
+            console.log(err);
+        });
+    }
+
    
     // var menu = false;
 
@@ -250,6 +299,14 @@ function getUrlVar(){
         get[key] = val;
     });
     return get;
+}
+
+
+//NOTIFICATION
+function notification(msg){
+    $("#boxError").innerHTML = msg;
+    box("boxError");
+    setTimeout(()=>{close();}, 3000);
 }
 
 

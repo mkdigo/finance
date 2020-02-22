@@ -1,0 +1,9 @@
+.flexUl ul{
+	min-width: 600px;
+}
+
+.flexUl ul li{
+	flex: 1;
+	justify-content: flex-start;
+	min-width: 210px;
+}
