@@ -31,8 +31,6 @@ if(!isset($_SESSION['user']) || !isset($_SESSION['login']) || $_SESSION['login']
 <body>
 
 <?php
-require_once("class/connectPDO.php");
-require_once("class/functions.php");
 require_once("notification.php");
 require_once("menu.php");
 
@@ -47,7 +45,7 @@ require_once("menu.php");
     <div class="box" id="boxError"></div>
 
     <div class="box" id="withdraw">
-        <form action="" method="post" id="formWithdraw" onsubmit="return false">
+        <form action="" method="post" id="withdrawForm" onsubmit="return false">
             <h1>Saque</h1>
             <ul>
                 <li>
@@ -81,7 +79,7 @@ require_once("menu.php");
     </div>
 
     <div class="box" id="card">
-        <form action="" method="post" id="formCard" onsubmit="return false">
+        <form action="" method="post" id="cardForm" onsubmit="return false">
             <h1>Cartão</h1>
             <ul>
                 <li>
@@ -115,7 +113,7 @@ require_once("menu.php");
     </div>
 
     <div class="box" id="deposit">
-        <form action="" method="post" id="formDeposit" onsubmit="return false">
+        <form action="" method="post" id="depositForm" onsubmit="return false">
             <h1>Depósito</h1>
             <ul>
                 <li>
@@ -146,6 +144,17 @@ require_once("menu.php");
                 </li>
             </ul>
         </form>
+    </div>
+
+    <div class="box" id="delete">
+        <h1>Confirmar Exclusão</h1>
+        <ul>
+            <li>Tem certeza que deseja excluir?</li>
+            <li>
+                <button id="deleteConfirm">Confirmar</button>
+                <button class="close">Cancelar</button>
+            </li>
+        </ul>
     </div>
 
 </section>

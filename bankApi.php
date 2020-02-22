@@ -229,7 +229,7 @@ if(!isset($_SESSION['user']) || !isset($_SESSION['login']) || $_SESSION['login']
     }
 
     
-    function add(){
+    function add($co = ""){
         global $json, $userId;
 
         $date = $_POST['date'];
@@ -239,7 +239,7 @@ if(!isset($_SESSION['user']) || !isset($_SESSION['login']) || $_SESSION['login']
 
         $tariffId = 38;
         $tariff = ($_POST['tariff'] == "") ? 0 : numberClearFormat($_POST['tariff']);
-        $comments = $_POST['comments'];
+        $comments = ($co != "") ? $co . ": " . $_POST['comments'] : $_POST['comments'];
         
         try{
             $entry = new Entry($date, $debitId, $creditId, $value, $comments, $userId);
@@ -265,8 +265,16 @@ if(!isset($_SESSION['user']) || !isset($_SESSION['login']) || $_SESSION['login']
             delete();
         break;
 
-        case "add":
-            add();
+        case "withdraw":
+            add('Saque');
+        break;
+
+        case "card":
+            add('Cartão');
+        break;
+
+        case "deposit":
+            add('Depósito');
         break;
     }
 
