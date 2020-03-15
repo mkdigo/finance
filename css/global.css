@@ -291,6 +291,7 @@ nav.menu{
     width: 250px;
     padding: 8px;
     z-index: 1;
+    transition: 0.2s;
 }
 
 nav.menu li{

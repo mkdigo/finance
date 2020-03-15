@@ -110,28 +110,25 @@ document.addEventListener("DOMContentLoaded", function(){
     }
 
    
-    // var menu = false;
+    var menuActive = false;
 
-    // function menuActive(){
-    //     let nav = document.querySelector("nav.pages");
-    //     let layer = document.querySelector(".layer");
-    //     if(menu === false){
-    //         menu = true;
-    //         layer.style.display = "flex";
-    //         nav.style.width = "140px";
-    //         nav.style.height = "437px";
-    //     }else{
-    //         menu = false;
-    //         layer.style.display = "none";
-    //         nav.style.width = "0px";
-    //         nav.style.height = "0px";
-    //     }
-    // }
+    const mobileMenu = $("#mobileMenu");''
 
-    // const menuButton = document.querySelector("#mobilePages");
-    // menuButton.addEventListener("click", ()=>{
-    //     menuActive();
-    // });
+    mobileMenu.addEventListener("click", ()=>{
+        mobileMenu.style.border = "inset 3px rgb(71, 56, 97)";
+        mobileMenu.style.background = "rgba(30, 25, 48, 1)";
+        setTimeout(()=>{
+            mobileMenu.style.border = "outset 3px rgb(71, 56, 97)";
+            mobileMenu.style.background = "rgba(38, 30, 52, 1)";
+        },300);
+        if(menuActive) {
+            $("nav.menu").style.left = "-100%";
+            menuActive = false;
+        }else{
+            $("nav.menu").style.left = "0";
+            menuActive = true;
+        }
+    });
 });
 
 
