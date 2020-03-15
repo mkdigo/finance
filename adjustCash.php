@@ -18,7 +18,7 @@ if(!isset($_SESSION['user']) || !isset($_SESSION['login']) || $_SESSION['login']
         $debitId = 31;
         $creditId = $_POST['creditId'];
         $value = numberClearFormat($_POST['value']);
-        $comments = "Juste de caixa";
+        $comments = "Ajuste de caixa";
         
         //DEBIT
         $sql = "SELECT SUM(debit) AS amount FROM entries WHERE account_id = $creditId";

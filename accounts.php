@@ -71,6 +71,40 @@ if(!isset($_SESSION['user']) || !isset($_SESSION['login']) || $_SESSION['login']
 		</form>
 	</div>
 
+	<div class="box" id="boxEdit">
+		<h1>Editar conta</h1>
+
+		<form action="" method="post" id="editForm" onsubmit="return false">
+			<ul>
+				<li>
+					<label for="editAccount">Conta:</label>
+					<input type="text" name="account" id="editAccount" />
+				</li>
+				<li>
+					<label for="editGroup">Grupo:</label>
+					<select name="group" id="editGroup">
+						<option value="Ativo">Ativo</option>
+						<option value="Passivo">Passivo</option>
+						<option value="Patrimônio Líquido">Patrimônio Líquido</option>
+						<option value="Contas de Resultado">Contas de Resultado</option>
+					</select>
+				</li>
+				<li><label for="editSubGroup">Sub-Grupo:</label>
+					<select name="subGroup" id="editSubGroup">
+						<option value='Circulante'>Circulante</option>
+						<option value='Permanente'>Permanente</option>
+						<option value='Realizável a longo prazo'>Realizável a longo prazo</option>
+					</select>
+				</li>
+				<li>
+					<button type="button" id="editConfirm">Confirmar</button>
+					<button type="button" class="close">Cancelar</button>
+				</li>
+			</ul>
+			<input type="hidden" name="accountId" value="" id="editAccountId" />
+		</form>
+	</div>
+
 </section>
 
 

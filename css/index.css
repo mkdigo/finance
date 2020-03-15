@@ -80,40 +80,39 @@ div.login ul{
 }
 
 div.login li{
+	display: flex;
+	align-items: center;
 	list-style: none;
 	width: 100%;
 	margin-bottom: 8px;
 }
 
 div.login li:last-child{
-	width: 100%;
-	text-align: right;
+	justify-content: flex-end;
 }
 
 div.login li input{
 	font-size: 26px;
-	width: 230px;
+	flex: 1;
 }
 
 div.login li label{
-	display: inline-block;
+	display: block;
 	width: 100px;
 	font-size: 26px;
 }
 
-div.login span{
+div.login button{
 	font-size: 22px;
 }
 
-div.msg{
-	position: absolute;
-	bottom: 5px;
-	width: 100%;
-	text-align: center;
+div.login span#msg{
+	flex: 1;
 	color: rgba(100, 0, 10, 1);
 	font-size: 20px;
 	animation: msg 1.5s linear infinite;
-	display: none;
+	padding-left: 35px;
+	/* display: none; */
 }
 
 @keyframes msg{

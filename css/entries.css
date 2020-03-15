@@ -1,8 +1,22 @@
-
-@media screen and (max-width: 1080px) {
-
+.flexUl ul li:nth-child(2){
+	width: 250px;
+	min-width: 250px;
+	justify-content: flex-start;
 }
 
+.flexUl ul li:nth-child(5){
+	flex-grow: 1;
+	min-width: 200px;
+	justify-content: flex-start;
+}
+
+
 @media screen and (max-width: 768px) {
-	
+	.flexUl ul li:nth-child(1){
+		min-width: 82px;
+	}
+
+	.flexUl ul li:nth-child(2){
+		min-width: 165px;
+	}
 }

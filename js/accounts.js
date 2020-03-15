@@ -13,6 +13,24 @@ $("#addConfirm").addEventListener("click", ()=>{
     }
 })
 
+$("#editConfirm").addEventListener("click", ()=>{
+    if($("#editAccount").value == ""){
+        error($("#editAccount"));
+    }else{
+        errorClear($("#editAccount"));
+        request("edit");
+    }
+})
+
+function edit(id, account, group, subGroup){
+    box("boxEdit");
+    $("#editAccount").value = account;
+    $("#editGroup").value = group;
+    changeGroup('edit');
+    $("#editSubGroup").value = subGroup;
+    $("#editAccountId").value = id;
+}
+
 
 //SET SUBGROUP
 const assets = "<option value='Circulante'>Circulante</option><option value='Permanente'>Permanente</option><option value='Realizável a longo prazo'>Realizável a longo prazo</option>";
@@ -23,25 +41,35 @@ const equity = "<option value='Capital Social'>Capital Social</option><option va
 
 const income = "<option value='Despesas'>Despesas</option><option value='Receitas'>Receitas</option>";
 
-$("#addGroup").addEventListener("change", ()=>{
-    let group = $("#addGroup").value;
+function changeGroup(box){
+    let group = $("#"+box+"Group").value;
     switch(group){
         case "Ativo":
-            $("#addSubGroup").innerHTML = assets;
+            $("#"+box+"SubGroup").innerHTML = assets;
             break;
         case "Passivo":
-            $("#addSubGroup").innerHTML = liabilities;
+            $("#"+box+"SubGroup").innerHTML = liabilities;
             break;
         case "Patrimônio Líquido":
-            $("#addSubGroup").innerHTML = equity;
+            $("#"+box+"SubGroup").innerHTML = equity;
             break;
         case "Contas de Resultado":
-            $("#addSubGroup").innerHTML = income;
+            $("#"+box+"SubGroup").innerHTML = income;
             break;
         default:
-            $("#addSubGroup").innerHTML = "";
+            $("#"+box+"SubGroup").innerHTML = "";
     }
+}
+
+
+$("#addGroup").addEventListener("change", ()=>{
+    changeGroup("add");
 });
+
+$("#editGroup").addEventListener("change", ()=>{
+    changeGroup("edit");
+});
+
 
 /*
 ASSETS
@@ -72,7 +100,9 @@ function request(action = null){
         case "add":
             form = new FormData($("#addForm"));
             break;
-        
+        case "edit":
+            form = new FormData($("#editForm"));
+            break;
         default:
             form = new FormData();
     }

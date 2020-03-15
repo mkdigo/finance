@@ -19,10 +19,10 @@
 				?>
 				</ul>
 			</div>
-			<li id="menu_pagar" onClick="openPage('pagar')">Contas a Pagar</li>
+		<li id="menuBillsToPay" onClick="openPage('billsToPay')">Contas a Pagar</li>
 		<li id="menuEntries" onClick="openPage('entries')">Lançamentos</li>
-			<li id="menu_compras" onClick="openPage('compras')">Lista de Compras</li>
-			<li id="menu_receitas" onClick="openPage('receitas')">Receitas</li>
+		<li id="menuShoppingList" onClick="openPage('shoppingList')">Lista de Compras</li>
+		<li id="menuRevenue" onClick="openPage('revenue')">Receitas</li>
 		<li id="menu_logout" onClick="openPage('logout')">Sair</li>
 	</ul>
 </nav>

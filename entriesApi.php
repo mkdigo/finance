@@ -10,7 +10,7 @@ if(!isset($_SESSION['user']) || !isset($_SESSION['login']) || $_SESSION['login']
 	session_destroy();
 	header("location:index.php");
 } else{
-    $userId = $_SESSION['user'];
+    $userId = $_SESSION['userId'];
 
     $json['error'] = false;
     $json['errorMsg'] = "Sem Erros";
@@ -180,7 +180,7 @@ if(!isset($_SESSION['user']) || !isset($_SESSION['login']) || $_SESSION['login']
         
         if($entry->getError()){
             $json['error'] = true;
-            $json['errorMsg'] = "Add error";
+            $json['errorMsg'] = "Add error: " . $entry->getErrorMsg();
         }
         
     }

@@ -8,14 +8,13 @@
     <link href="css/index.css" rel="stylesheet" type="text/css"/>
     <link rel="apple-touch-icon" sizes="114x114" href="templates/logo.png" />
     <link rel="icon" type="imagem/jpeg" href="templates/logo.png" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="js/index.js"></script>
     <title>Sistema de Controle Financeiro</title>
 </head>
 <body>
 
 <?php
-require_once("connectPDO.php");
+require_once("class/connectPDO.php");
 function getIP() {
 	$ipaddress=isset($_SERVER['REMOTE_ADDR'])?$_SERVER['REMOTE_ADDR']:"UNKNOWN";
 	return $ipaddress;
@@ -29,7 +28,7 @@ $exec=$pdo->prepare($sql);
 $exec->execute();
 $numRows=$exec->rowCount();
 
-if($numRows>=3){ 
+if($numRows >= 3){ 
     echo"
         <div class='login'>
         <div>Controle Financeiro</div>
@@ -45,26 +44,34 @@ else{
     <div>
         <form action="" method="post" id="loginForm">
         <ul>
-            <li><label for="usuario">Usuário: </label><input type="text" name="usuario" id="usuario"/></li>
-            <li><label for="senha">Senha: </label><input type="password" name="senha" id="senha"/></li>
-            <li><span class="bt" id="loginButton">Entrar</span></li>
+            <li>
+                <label for="user">Usuário: </label>
+                <input type="text" name="user" id="user"/>
+            </li>
+            <li>
+                <label for="pass">Senha: </label>
+                <input type="password" name="pass" id="pass"/>
+            </li>
+            <li>
+                <span id="msg"></span>
+                <button type="submit" id="loginButton">Entrar</button>
+            </li>
         </ul>
         </form>
     </div>
-    <div class="msg">Usuário ou Senha inválida!</div>
 </div>
 
 <?php
-    if(isset($_POST['usuario'])){
-        $user = $_POST['usuario'];
-        $pass = $_POST['senha'];
+    if(isset($_POST['user'])){
+        $user = $_POST['user'];
+        $pass = $_POST['pass'];
         
         require_once("class/login.php");
         
-        $l = new Login($user,$pass,$pdo);
+        $l = new Login($user, $pass);
         
         if($l->getStatus()){
-            header("location:balanco.php");
+            header("location:balance.php");
         }
         else{
             $sql = "INSERT INTO login_miss(ip,t)VALUES(?,?);";
@@ -72,7 +79,9 @@ else{
             $exec->execute(array($ip, $now));
             
             echo"
-                <script>$('.msg').css('display','block');</script>
+                <script>
+                    document.querySelector(\"#msg\").innerHTML = \"".$l->getStatusMsg()."\";
+                </script>
             ";
         }
     

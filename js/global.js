@@ -279,6 +279,18 @@ function keyEnter(e, button){
 }
 
 
+function enter(box){
+    let f = $("#"+box+"Form input");
+    for(let x = 0; x < f.length; x++){
+        f[x].addEventListener("keyup", (e)=>{
+            if(e.which == 13){
+                $("#"+box+"Confirm").click();
+            }
+        })
+    }
+}
+
+
 // ESC
 document.addEventListener("keyup", function(e){
     if(e.which == 27){

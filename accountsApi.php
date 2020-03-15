@@ -42,6 +42,31 @@ if(!isset($_SESSION['user']) || !isset($_SESSION['login']) || $_SESSION['login']
     }
 
 
+    function edit(){
+        global $pdo, $json;
+
+        try{
+            $accountId = $_POST['accountId'];
+            $account = $_POST['account'];
+            $group = $_POST['group'];
+            $subGroup = $_POST['subGroup'];
+            
+            $sql = "UPDATE accounts SET account = :account, `group` = :group, `subgroup` = :subgroup WHERE id = :id";
+            $con = $pdo->prepare($sql);
+            $con->bindValue(":id", $accountId, PDO::PARAM_INT);
+            $con->bindValue(":account", $account, PDO::PARAM_STR);
+            $con->bindValue(":group", $group, PDO::PARAM_STR);
+            $con->bindValue(":subgroup", $subGroup, PDO::PARAM_STR);
+            if(!$con->execute()){
+                throw new Exception("Update error");
+            }
+        }catch(Exception $e){
+            $json['error'] = true;
+            $json['errorMsg'] = $e->getMessage();
+        }
+    }
+
+
     function load(){
         global $pdo, $json;
 
@@ -64,7 +89,7 @@ if(!isset($_SESSION['user']) || !isset($_SESSION['login']) || $_SESSION['login']
             $list = $con->fetchAll(PDO::FETCH_OBJ);
             foreach($list as $rows){
                 $json['list'] .= "
-                    <ul>
+                    <ul onclick=\"edit($rows->id, '$rows->account', '$rows->group', '$rows->subgroup')\">
                         <li>$rows->account</li>
                         <li>$rows->group</li>
                         <li>$rows->subgroup</li>
@@ -80,6 +105,9 @@ if(!isset($_SESSION['user']) || !isset($_SESSION['login']) || $_SESSION['login']
     switch($action){
         case "add":
             add();
+        break;
+        case "edit":
+            edit();
         break;
     }
     

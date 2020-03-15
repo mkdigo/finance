@@ -1,17 +1,14 @@
 ﻿<?php
 
+require_once("class/connectPDO.php");
 
 class Login{
-	private $user, $pass, $sql, $ex, $rows, $status, $pdo;
+	private $user, $pass, $status, $statusMsg;
 	
-	function __construct($us,$pa,$pdoConnect){
+	function __construct($us,$pa){
 		$this->setUser($us);
 		$this->setPass($pa);
-		$this->setSql();
-		$this->setPdo($pdoConnect);
-		$this->setEx();
-		$this->setRows();
-		$this->setStatus();
+		$this->execute();
 	}
 		
 	//GET
@@ -19,80 +16,87 @@ class Login{
 	private function getUser(){
 		return $this->user;
 	}
+
 	
 	private function getPass(){
 		return $this->pass;
 	}
+
 	
-	private function getSql(){
-		return $this->sql;
+	public function getStatusMsg(){
+		return $this->statusMsg;
 	}
-	
-	private function getEx(){
-		return $this->ex;
-	}
-	
+
+
 	public function getStatus(){
 		return $this->status;
 	}
-	
-	private function getRows(){
-		return $this->rows;
-	}
-	
-	private function getPdo(){
-		return $this->pdo;
-	}
-	
+
 	
 	//SET
 	
 	private function setUser($user){
 		$this->user = addslashes(trim($user));
 	}
+
 	
 	private function setPass($pass){
 		$this->pass = addslashes(trim($pass));
 	}
+
 	
-	private function setSql(){
-		$this->sql="select * from usuarios where user = :user";
+	private function setStatusMsg($sm){
+		$this->statusMsg = $sm;
 	}
-	
-	private function setEx(){
-		$this->ex=$this->getPdo()->prepare($this->getSql());
-		$this->ex->bindValue(":user", $this->getUser());
-		$this->ex->execute();
+
+
+	private function setStatus($s){
+		$this->status = $s;
 	}
-	
-	private function setRows(){
-		$this->rows = $this->getEx()->rowCount();
-	}
+
+
+	private function execute(){
+		global $pdo;
+
+		try{
+			$sql = "SELECT * FROM user WHERE user = :user";;
+			$con = $pdo->prepare($sql);
+			$con->bindValue(":user", $this->getUser(), PDO::PARAM_STR);
 			
-	private function setStatus(){
-		if($this->getRows() == 1){
-			$r=$this->getEx()->fetch(PDO::FETCH_ASSOC);
-			$salt=$r['salt'];
-			$bd_pass=$r['password'];
-			$pass_md5=md5($this->getPass().$salt);
-			if($bd_pass==$pass_md5){
-				session_start();
-				$_SESSION['user'] = $this->getUser();
-				$_SESSION['userName'] = $r['name'];
-				$_SESSION['login'] = "bc3326c033a42c1ddb4e5a";
-				$_SESSION['userId'] = $r['id'];
-				$_SESSION['alt'] = $r['alt'];
-				$this->status=true;
+			if(!$con->execute()){
+				throw new Exception("User query error");
 			}
+
+			if($con->rowCount() == 1){
+				$r = $con->fetchObject();
+				$salt = $r->salt;
+				$bd_pass = $r->password;
+				$pass_md5 = md5($this->getPass().$salt);
+				if($bd_pass == $pass_md5){
+					session_start();
+					$_SESSION['user'] = $this->getUser();
+					$_SESSION['userName'] = $r->name;
+					$_SESSION['login'] = "bc3326c033a42c1ddb4e5a";
+					$_SESSION['userId'] = $r->id;
+					$_SESSION['alt'] = $r->alt;
+					$this->setStatus(true);
+
+					$this->setStatusMsg("Login ok");
+				}else{
+					throw new Exception("Usuário ou Senha inválida!");
+				}
+			}else{
+				throw new Exception("Usuário ou Senha inválida!");
+			}
+			
+		}catch(Exception $e){
+			$this->setStatus(false);
+			$this->setStatusMsg($e->getMessage());
 		}
-		else{
-			$this->status=false;
-		}
+
+		
 	}
-	
-	private function setPdo($p){
-		$this->pdo=$p;
-	}
+
 }
 
 ?>
